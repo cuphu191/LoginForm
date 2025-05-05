@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .box{
+        border: 3px solid black;
+        width: 60%;
+        margin: 20% auto;
+        padding: 10%;
+    }
+    .title{
+        margin-top: 20px;
+        text-align: center;
+    }
+    input{
+        width: 100%;
+    }
+    button{
+        text-align: center;
+        margin: 15px 40%;
+    }
+</style>
+<body>
+    <div class="box">
+        <h1 class="title">Register</h1>
+        <hr>
+        <div class="inputData">
+            <p>Username</p>
+            <input type="text" id="username_Data" value="">
+        </div>
+        <div class="inputData">
+            <p>password</p>
+            <input type="password" id="password_Data" value="">
+        </div>
+        <div class="inputData">
+            <p>confirm password</p>
+            <input type="password" id="confirm_password" value="">
+        </div>
+        <button id="submit">Submit</button>
+    </div>
+</body>
+<script>
+    const submit = document.getElementById("submit")
+
+    submit.addEventListener('click', function(){
+        // data username,pass
+        var username = document.getElementById("username_Data").value
+        var password = document.getElementById("password_Data").value
+        var confirm = document.getElementById("confirm_password").value
+
+        if(password === confirm){
+            let data = JSON.parse(localStorage.getItem('userData')) || [];
+            data.push({username, password});
+            localStorage.setItem('userData', JSON.stringify(data));
+
+            window.location.replace("index.html")
+        }
+        else if(password == "" || username == "" || confirm == ""){
+            alert("Mohon isi data terlebih dahulu");
+        }
+        else{
+            alert("Pastikan password sama dengan confirm password");
+        }    
+
+        document.getElementById("username_Data").value = "";
+        document.getElementById("password_Data").value = "";
+        document.getElementById("confirm_password").value = "";
+    });
+    
+    
+    
+</script>
+</html>

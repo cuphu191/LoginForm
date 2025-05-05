@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setting</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .box {
+        border: 3px solid black;
+        border-radius: 20px;
+        width: 60%;
+        margin: 5% auto;
+        padding: 10%;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    button {
+        text-align: center;
+        margin: 15px 40%;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 30px;
+        left: 5%;
+    }
+
+    footer button {
+        width: 180%;
+        height: 30px;
+    }
+</style>
+<header>
+    <h1>Change Password</h1>
+</header>
+
+<body>
+    <div class="box">
+        <div class="inputData">
+            <p>Password</p>
+            <input type="text" id="password_Lama">
+        </div>
+        <div class="inputData">
+            <p> New Password</p>
+            <input type="text" id="password_Baru">
+        </div>
+        <button id="change">Change</button>
+    </div>
+</body>
+<footer>
+    <button id="back">Back</button>
+</footer>
+<script>
+
+
+    const change = document.getElementById("change");//tombol ganti
+    const back = document.getElementById("back");//tombol back
+
+
+    change.addEventListener("click", function () {
+        let inputPass = document.getElementById("password_Lama").value;
+        let data = JSON.parse(localStorage.getItem('userData'));
+        const MyAcc = JSON.parse(localStorage.getItem('LoginAcc'))
+        const passbaru = document.getElementById("password_Baru").value;
+        let pass = localStorage.getItem('pass')
+        console.log(data)
+        const check_index = data.findIndex((item) => item.username === MyAcc.element.username)
+        console.log(check_index)
+        console.log(passbaru)
+        if (check_index !== -1) {
+            if (data[check_index].password === inputPass) {
+                data[check_index].password = passbaru
+                localStorage.setItem('userData', JSON.stringify(data))
+                localStorage.setItem('pass', passbaru)
+            } else {
+                alert("Password salah")
+            }
+        }
+
+
+        console.log(pass)
+
+    })
+
+
+    back.addEventListener("click", function () {
+        window.location.href = "main.html";
+    })
+
+
+
+</script>
+
+</html>
