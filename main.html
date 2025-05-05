@@ -60,6 +60,7 @@
         width: 160%;
         height: 120%;
     }
+
     
 </style>
 <body>
@@ -86,9 +87,10 @@
 <script>
     let nama = localStorage.getItem('nama');
     let first = nama.slice(0,1).toUpperCase(); //untuk huruf depan kapital
-    // const [firstName,SecondName] = nama.split(" ")
-    // console.log(firstName.slice(0,1).toUpperCase())
-    // console.log(SecondName.slice(0,1).toUpperCase())
+    let [firstName,SecondName] = nama.split(" ")
+
+    let awal = firstName.slice(0,1).toUpperCase();
+    let awall = firstName.slice(1,firstName.length).toLowerCase();
     let second = nama.slice(1,nama.length).toLowerCase(); //agar huruf kedua sampai habis tidak kapital
 
     const pop = document.getElementById("pop");
@@ -97,11 +99,25 @@
 
     const greet = document.getElementById("greet");
 
+    if(SecondName){
+        const h1 = document.createElement("h1");
+        h1.style.textAlign = "center";
+        let akhir = SecondName.slice(0,1).toUpperCase();
+        let akhirr = SecondName.slice(1,SecondName.length).toLowerCase();
+        greet.append(h1);
+        h1.innerHTML = "Selamat Datang " + "<br>" + awal + awall + " " + akhir + akhirr;
+        
+    }
+    else{
+        const h1 = document.createElement("h1");
+        h1.style.textAlign = "center";
+        greet.append(h1);
+        h1.innerHTML = "Selamat Datang " + "<br>" + first + second;
+        console.log("hi")
+
+    }
     // Sapaan
-    const h1 = document.createElement("h1");
-    h1.style.textAlign = "center";
-    greet.append(h1);
-    h1.innerHTML = "Selamat Datang " + "<br>" + first + second;
+    
     
     // tombol exit
     const exit = document.getElementById("exit");
