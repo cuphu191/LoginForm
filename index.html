@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        background-image: linear-gradient(to right, #4ED7F1, #A8F1FF, #4ED7F1);
+    }
+
+    .box {
+        border: 3px solid rgb(0, 0, 0);
+        border-radius: 20px;
+        width: 60%;
+        margin: 20% auto;
+        padding: 10%;
+    }
+
+    .title {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    button {
+        text-align: center;
+        margin: 15px 40%;
+        border-radius: 20px;
+    }
+
+    .bawah {
+        font-size: 14px;
+    }
+
+    #loading {
+        margin: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: fixed;
+        top: 0;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.61);
+        visibility: hidden;
+    }
+
+    #loading h1 {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        text-align: center;
+    }
+
+    @media (min-width : 450px) {
+        input {
+            height: 20px;
+        }
+    }
+
+    @media (min-width : 490px) {
+        input {
+            height: 30px;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+
+        button {
+            width: 20%;
+            height: 30px;
+        }
+    }
+
+    @media (min-width : 700px) {
+        .box {
+            margin: 12% auto;
+        }
+
+        input {
+            height: 35px;
+        }
+
+        h1 {
+            font-size: 45px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        button {
+            width: 25%;
+            height: 35px;
+        }
+    }
+
+    @media (min-width : 900px) {
+        .box {
+            border: 3px solid black;
+            border-radius: 20px;
+            width: 50%;
+            margin: 10% auto;
+            padding: 10%;
+        }
+
+        input {
+            height: 35px;
+        }
+
+        h1 {
+            font-size: 45px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        button {
+            width: 25%;
+            height: 35px;
+        }
+    }
+
+    @media (min-width : 1000px) {
+        .box {
+            border: 3px solid black;
+            border-radius: 20px;
+            width: 50%;
+            margin: 17px auto;
+            padding-top: 12%;
+        }
+
+        input {
+            height: 40px;
+            font-size: large;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 48px;
+        }
+
+        p {
+            font-size: 25px;
+        }
+
+        button {
+            margin: 15px 38%;
+            width: 25%;
+            height: 35px;
+        }
+    }
+
+    @media (max-width : 346px) {
+        p {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width : 270px) {
+        p {
+            font-size: 10px;
+        }
+
+        button {
+            margin: 15px 32%;
+        }
+    }
+
+    @media (max-width : 169px) {
+        p {
+            font-size: 10px;
+        }
+
+        button {
+            margin: 15px 28%;
+        }
+    }
+</style>
+
+<body>
+    <div class="box">
+        <h1 class="title">Login</h1>
+        <hr>
+        <div class="inputData">
+            <p>Username</p>
+            <input type="text" id="username_Login">
+        </div>
+        <div class="inputData">
+            <p>password</p>
+            <input type="password" id="password_Login">
+        </div>
+        <button id="submit">Submit</button>
+
+        <div>
+            <p class="bawah">Tidak memiliki akun? <a href="register.html">buat akun</a></p>
+        </div>
+    </div>
+    <div id="loading">
+        <h1>Loading....</h1>
+    </div>
+
+</body>
+<script>
+
+
+    const submit = document.getElementById("submit");
+    let data = JSON.parse(localStorage.getItem('userData'));
+    // if(localStorage.getItem("LoginAcc")){
+    //     window.location.href = "main.html"
+    // } 
+    let isLoading = true
+    const wait = new Promise(function (Callback, Error) {
+        setTimeout(() => {
+            Callback()
+        }, 5000);
+    })
+
+    const InfoProcess = () => {
+        const loading = document.getElementById("loading");
+        console.log(isLoading)
+        if (isLoading) {
+            loading.style.visibility = "visible";
+        } else {
+            loading.style.visibility = "hidden";
+        }
+    }
+
+
+
+    submit.addEventListener('click', function (e) {
+        e.preventDefault()
+
+        let usernamelogin = document.getElementById("username_Login").value;
+                let passwordlogin = document.getElementById("password_Login").value;
+                if (usernamelogin == "" && passwordlogin == "") {
+                    console.log("Hahahaha")
+                    return;
+                }
+       
+        isLoading = true
+        InfoProcess()
+        console.log(isLoading)
+        wait.then(
+            function () {
+                
+                if (isLoading) {
+                let usernamelogin = document.getElementById("username_Login").value;
+                let passwordlogin = document.getElementById("password_Login").value;
+                if (usernamelogin == "" && passwordlogin == "") {
+                    return;
+                }
+
+                console.log("hahaha")
+
+                
+
+                let isLogin = false
+
+                // untuk loop
+                data.forEach(element => {
+                    if (usernamelogin === element.username && passwordlogin === element.password && usernamelogin != "" && passwordlogin != "") {
+                        isLogin = true
+                        localStorage.setItem('LoginAcc', JSON.stringify({ element }))
+                        localStorage.setItem('nama', usernamelogin)
+                        localStorage.setItem('pass', passwordlogin)
+                    }
+                });
+
+                if (!isLogin) {
+                    document.getElementById("username_Login").value = "";
+                    document.getElementById("password_Login").value = "";
+                    isLoading = false
+                    console.log("SALAAAAH")
+                } else {
+                    window.location.href = "main.html"
+                }
+                InfoProcess()
+                // wait.then(
+                //     function(){
+                //         InfoProcess()
+                //     },
+                //         function(){}
+                //     )
+                
+            }
+            else {
+                Error()
+            }
+            },
+            function () { }
+        )
+
+
+
+    });
+
+
+
+
+
+
+
+
+</script>
+
+</html>
