@@ -3,195 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>BMI Calculator</title>
 </head>
 <style>
+    body{
+        background-color: #A0C878;
+    }
     *{
-        margin: 0;
-        padding: 0;
-    }
-    html{
-        background-image: linear-gradient(to right, #4ED7F1, #A8F1FF, #4ED7F1);
-    }
-    .box{
-        border: 3px solid black;
-        border-radius: 20px;
-        width: 60%;
-        margin: 20% auto;
-        padding: 10%;
+        text-align: center;
+        color: #FAF6E9;
     }
     .title{
-        margin-top: 20px;
-        text-align: center;
+        font-size: 64px;
+        margin-bottom: 25px;
     }
     input{
-        width: 100%;
+        border-radius: 20px;
+        text-align: left;
+        color: #DDEB9D;
+    }
+    input::placeholder{
+        color: #DDEB9D;
+        opacity: 0.5;
     }
     button{
-        text-align: center;
-        margin: 15px 40%;
+        margin-top: 30px;
         border-radius: 20px;
-    }
-    .bawah{
-        font-size: 14px;
-    }
-    @media (min-width : 450px ){
-        input{
-            height: 20px;
-        }
-    }
-    @media (min-width : 490px ){
-        input{
-            height: 30px;
-        }
-        h1{
-            font-size: 40px;
-        }
-        p{
-            font-size: 15px;
-        }
-        button{
-            width: 20%;
-            height: 30px;
-        }
-    }
-    @media (min-width : 700px ){
-        .box{
-            margin: 12% auto;
-        }
-        input{
-            height: 35px;
-        }
-        h1{
-            font-size: 45px;
-        }
-        p{
-            font-size: 20px;
-        }
-        button{
-            width: 25%;
-            height: 35px;
-        }
-    }
-    @media (min-width : 900px ){
-        .box{
-            border: 3px solid black;
-            border-radius: 20px;
-            width: 50%;
-            margin: 10% auto;
-            padding: 10%;
-        }
-        input{
-            height: 35px;
-        }
-        h1{
-            font-size: 45px;
-        }
-        p{
-            font-size: 20px;
-        }
-        button{
-            width: 25%;
-            height: 35px;
-        }
-    }
-    @media (min-width : 1000px ){
-        .box{
-            border: 3px solid black;
-            border-radius: 20px;
-            width: 50%;
-            margin: 17px auto;
-            padding-top: 12%;
-        }
-        input{
-            height: 40px;
-            font-size: large;
-            letter-spacing: 1px;
-        }
-        h1{
-            font-size: 48px;
-        }
-        p{
-            font-size: 25px;
-        }
-        button{
-            margin: 15px 38%;
-            width: 25%;
-            height: 35px;
-        }
-    }
-    @media (max-width : 346px ){
-        p{
-            font-size: 12px;
-        }
-    }
-    @media (max-width : 270px ){
-        p{
-            font-size: 10px;
-        }
-        button{
-            margin: 15px 32%;
-        }
-    }
-    @media (max-width : 169px ){
-        p{
-            font-size: 10px;
-        }
-        button{
-            margin: 15px 28%;
-        }
+        background-color: #DDEB9D;
+        font-size: 32px;
     }
 </style>
 <body>
-    <div class="box">
-        <h1 class="title">Login</h1>
-        <hr>
-        <div class="inputData">
-            <p>Username</p>
-            <input type="text" id="username_Login">
-        </div>
-        <div class="inputData">
-            <p>password</p>
-            <input type="password" id="password_Login">
-        </div>
-        <button id="submit">Submit</button>
-
-        <div>
-            <p class="bawah">Tidak memiliki akun? <a href="register.html">buat akun</a></p>
-        </div>
+    <h1 class="title">BMI Calculator</h1>
+    <div>
+        <h1>Berat badan (kg)</h1>
+        <input id="inputWeight" type="number" value="" placeholder="Berat badan">
     </div>
-    
+    <div>
+        <h1>Tinggi badan (cm)</h1>
+        <input id="inputHeight" type="number" value="" placeholder="Tinggi badan">
+    </div>
+    <button id="submit" > hasil </button>
 </body>
 <script>
-    const submit = document.getElementById("submit");
-    let data = JSON.parse(localStorage.getItem('userData'));
-    // if(localStorage.getItem("LoginAcc")){
-    //     window.location.href = "main.html"
-    // } 
-    submit.addEventListener('click', function(e){
-        e.preventDefault()
-        let usernamelogin = document.getElementById("username_Login").value;
-        let passwordlogin = document.getElementById("password_Login").value;
-        console.log(usernamelogin);
-        
-        let isLogin = false
-        
-        // untuk loop
-        data.forEach(element => {
-            if(usernamelogin === element.username && passwordlogin === element.password && usernamelogin != "" && passwordlogin != ""){
-                isLogin = true
-                localStorage.setItem('LoginAcc',JSON.stringify({element}))
-                localStorage.setItem('nama', usernamelogin)
-                localStorage.setItem('pass', passwordlogin)
-            }
-        });
-        if(!isLogin){
-            alert("username atau password salah")
-        }else{
-            window.location.href = "main.html"
+    // fungsi bmiCalculator
+    function bmiCalculator(weight, height) {      
+        var bmi = weight / ((height * height)/10000);
+        var bmi = bmi.toFixed(2);
+        if (bmi < 18.5) {
+            return "BMI mu adalah " + bmi + ", kamu underweight.";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            return "BMI mu adalah " + bmi + ", kamu normal weight.";
+        } else {
+            return "BMI mu adalah " + bmi + ", kamu overweight.";
         }
-        document.getElementById("username_Login").value = "";
-        document.getElementById("password_Login").value = "";
-    });
+    }
+    // pengambilan data dari input + submit
+        const submit = document.getElementById("submit");
+        submit.addEventListener('click', function(e){
+            var weight = document.getElementById('inputWeight').value;
+            var height = document.getElementById('inputHeight').value;
+            e.preventDefault();
+            if( weight === ""  || height === ""){
+                alert("Isi data dulu")
+            }else{
+                alert(bmiCalculator(weight,height));
+            }  
+        })
+
 </script>
 </html>
